@@ -1,0 +1,32 @@
+//Lexic.txt
+
+Specifications for this partcular mini language
+
+Its alphabet contains:
+    - both upper and lower case letters of the engish alphabet and the underline character '_'
+    - hiragana, katakana and kanji characters
+    - decimal digits, 0 to 9
+
+It also contains 
+    - special symbols, representing:
+        - separators: -> <- () [] : ; ,
+        - reserved words: decl set if then else integer string boolean void function main returns show whileLoop
+        - operators: - + * / % < <= > >= += -= ==
+    - sequnces of letters or characters and digits with regards to:
+        - identifier ::= letter | character | letter{letter}{character}{digit} | character{letter}{character}{digit}
+        - letter ::= "A"| "B" |...|"Z" | "a" | "b" | ... | "z"
+        - character ::= "あ" | "い" | "う" | ... | "ん"
+        - digits "0" |...| "9"
+    - constants
+        - integer 
+            - noConst := "+"no|"-"no|no
+            - no := no_zero_digit{digit} | "0"
+            - non_zero_digit := "1"| ... | "9"
+        - boolean 
+            -  ok:= true | false
+        -string
+            - const := "some string example"
+        - array 
+            - arr := [ value{values}]
+    
+

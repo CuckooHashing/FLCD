@@ -42,6 +42,16 @@ class Tree:
                 node = node.right
         return None
 
+    def prettifyTree(self, node):
+        string = ""
+        if node!=None:
+            string += str(node) + ': ' + 'left: ' + str(node.left) + ' ' + 'right: ' + str(node.right) + ' ' + '\n' + self.prettifyTree(node.left) + self.prettifyTree(node.right)
+        return string
+
+    def __str__(self):
+        return self.prettifyTree(self.root)
+
+
 class SymbolTable:
     def __init__(self):
         self.tree = Tree()

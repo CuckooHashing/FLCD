@@ -1,0 +1,41 @@
+//Syntax.in
+
+Sintactical rules of this particular mini language
+
+program ::= "function main " decllist " returns " type "->" cmpdstmt "<-"
+
+decllist ::= declaration | declaration ";" decllist
+
+declaration ::= "decl" IDENTIFIER type
+
+type1 ::= "boolean" | "string" | "integer"
+
+arrayDecl ::= "array " IDENTIFIER " of" type "[" nr "]"
+
+cmpdstmt ::= stmtlist 
+
+stmtlist ::= stmt | stmt ";" stmtlist
+
+stmt ::= simplstmt | structstmt
+
+assignstmt ::= "set" IDENTIFIER expression
+
+expression ::= expression "+"  term | term | expression "-" term
+
+term ::= term "*" factor | factor | term "/" factor | term "%" factor
+
+factor ::= "(" expression ")" | IDENTIFIER
+
+iostmt ::= "read" "(" IDENTIFIER ")" | "show" "(" IDENTIFIER ")"
+
+structstmt ::= cmpdstmt | ifstmt | whilestmt
+
+ifstmt ::= "if" condition "then ->" stmt "<-" "else ->" stmt "<-"
+
+whilestmt ::= "whileLoop" condition "then ->" stmt "<-"
+
+forstmt ::= "forLoop" assignstmt | declstmt, condition, assignstmt "then ->" stmt "<-"
+
+condition ::= expression RELATION expression
+
+RELATION ::= "<" | "<=" | "==" | "!=" | ">=" | ">"

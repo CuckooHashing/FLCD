@@ -1,0 +1,23 @@
+function main returns void->
+    decl a integer;
+    decl b integer;
+    decl c integer;
+
+    set a 2;
+    set b 7;
+    set c 5;
+
+    decl max integer;
+
+    if a > b then ->
+        set max a;
+    <-
+    else -> 
+        set max b;
+    <-
+    if max < c then ->
+        set max c;
+    <-
+
+    show(max)
+<-
