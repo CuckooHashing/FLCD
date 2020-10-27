@@ -6,4 +6,7 @@ class ProgramInternalForm:
         self.contents.append((given, id))
 
     def __str__(self):
-        return str(self.data)
+        prettyString = ""
+        for ceva in self.contents:
+            prettyString += str(ceva) + "\n"
+        return prettyString

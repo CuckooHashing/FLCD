@@ -1,19 +1,19 @@
 function main returns void->
-    decl a integer;
-    decl b integer;
+    decl pancake integer;
+    decl crow integer;
     decl c integer;
 
-    set a 2;
-    set b 7;
+    set pancake 2;
+    set crow 7;
     set c 5;
 
     decl max integer;
 
-    if a > b then ->
-        set max a;
+    if pancake > crow then ->
+        set max pancake;
     <-
     else -> 
-        set max b;
+        set max crow;
     <-
     if max < c then ->
         set max c;

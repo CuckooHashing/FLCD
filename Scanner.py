@@ -1,8 +1,8 @@
 import re
-import SymbolTable
-import ProgramInternalForm
+from SymbolTable import SymbolTable
+from ProgramInternalForm import ProgramInternalForm
 class Scanner:
-    def __init__(self, sym: SymbolTable, pif: ProgramInternalForm, codePath = "lab1.txt"):
+    def __init__(self, sym: SymbolTable, pif: ProgramInternalForm, codePath = "D:\\Facultate\\Sem 1\\FLCD\\STlab2\\lab1.txt"):
         self.operators = []
         self.tokens = self.readTokens()
         self.code = codePath
@@ -10,7 +10,7 @@ class Scanner:
         self.symbolTable = sym
 
     def readTokens(self):
-        file = open("tokens.in")
+        file = open("D:\\Facultate\\Sem 1\\FLCD\\STlab2\\token.in")
         count = 0
 
         tokens = []
@@ -24,11 +24,13 @@ class Scanner:
         self.operators.append(" ")
         return tokens
 
-    def detect(self, line):
+    def detect(self, line: str):
         tokens = []
         bigString = ""
         for i in range(0, len(line)):
             if line[i] in self.operators:
+                tokens.append(bigString)
+                bigString = ""
                 if line[i] == "\"":
                     stringString = line[i]
                     i += 1
@@ -36,40 +38,40 @@ class Scanner:
                         stringString += line[i]
                         i += 1
                     stringString += line[i]
-                tokens.append(bigString)
-                bigString = ""
-                tokens.append(stringString)
+                    tokens.append(stringString)
             else:
                 bigString += line[i]
-        return tokens
+        finalTokens = []
+        for tok in tokens:
+            if tok != "" and tok != " " and tok != "\n":
+                finalTokens.append(tok)
+        return finalTokens
 
     def isToken(self, check):
         return check in self.tokens
 
     def isIdentifier(self, token):
-        '''
-        hiragana and katakana support limited. search for regex unicod 3000
-        '''
-        return re.match(r'^[a-zA-Z]([\p{Hiragana}\p{Katakana}\p{Han}]+)([a-zA-Z]|[0-9]|([\p{Hiragana}\p{Katakana}\p{Han}]+)_)$', token) is not None
+        return re.match(r'^[a-zA-Z]([a-zA-Z]|[0-9]|_){,7}$', token) is not None
 
     def isConstant(self, token):
-        return re.match(r'^([\+\-]?[1-9][0-9])$|^\".\"$', token) is not None
+        return re.match(r'^(0|[\+\-]?[1-9][0-9]*)$|^\'.*\'$|^\".*\"$', token) is not None
 
     def scan(self):
         file = open(self.code)
-        line = file.readline
         count = 0
-        while line:
+        for line in file.read().splitlines():
             readTokens = self.detect(line)
             for token in readTokens:
                 if self.isToken(token):
                     self.pif.genPif(token, 0)
                 elif self.isIdentifier(token) or self.isConstant(token):
-                    self.symbolTable.add(token)
+                    index = self.symbolTable.search(token)
+                    if index is None:
+                        self.symbolTable.add(token)
                     index = self.symbolTable.search(token)
                     self.pif.genPif(token, index)
                 else:
-                    raise Exception("There is a Lexical Error detected on line " + count)
+                    raise Exception("There is a Lexical Error detected on line " + str(count) + " for token " + token)
             count += 1
 
 '''
@@ -78,4 +80,18 @@ Tests
 symTable = SymbolTable()
 pif = ProgramInternalForm()
 scanner = Scanner(symTable, pif)
+scanner.scan()
+print("symTable: ")
+print(symTable)
+print("pif: ")
+print(pif)
+
+symTable = SymbolTable()
+pif = ProgramInternalForm()
+scanner = Scanner(symTable, pif, "D:\\Facultate\\Sem 1\\FLCD\\STlab2\\p1er.txt")
+scanner.scan()
+print("symTable: ")
+print(symTable)
+print("pif: ")
+print(pif)
 

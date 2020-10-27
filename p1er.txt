@@ -1,0 +1,14 @@
+function main returns void ->
+    decl 2num integer;
+    decl num integer;
+    decl a string;
+
+    set a "pancake;
+
+    if num > num2 ->
+        show(a)
+    <-
+    else ->
+        show(a)
+    <-
+<-
