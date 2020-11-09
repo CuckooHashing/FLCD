@@ -1,6 +1,7 @@
 import re
 from SymbolTable import SymbolTable
 from ProgramInternalForm import ProgramInternalForm
+from FA import FiniteAutomata
 class Scanner:
     def __init__(self, sym: SymbolTable, pif: ProgramInternalForm, codePath = "D:\\Facultate\\Sem 1\\FLCD\\STlab2\\lab1.txt"):
         self.operators = []
@@ -8,6 +9,8 @@ class Scanner:
         self.code = codePath
         self.pif = pif
         self.symbolTable = sym
+        self.intFA = FiniteAutomata.readFromFile("intFA.in")
+        self.idFA = FiniteAutomata.readFromFile("idFA.in")
 
     def readTokens(self):
         file = open("D:\\Facultate\\Sem 1\\FLCD\\STlab2\\token.in")
@@ -51,10 +54,14 @@ class Scanner:
         return check in self.tokens
 
     def isIdentifier(self, token):
-        return re.match(r'^[a-zA-Z]([a-zA-Z]|[0-9]|_){,7}$', token) is not None
+        #return re.match(r'^[a-zA-Z]([a-zA-Z]|[0-9]|_){,7}$', token) is not None
+        return self.idFA.checkString(token)
 
-    def isConstant(self, token):
-        return re.match(r'^(0|[\+\-]?[1-9][0-9]*)$|^\'.*\'$|^\".*\"$', token) is not None
+    def isStringConstant(self, token):
+        return re.match(r'^\".*\"$', token) is not None
+
+    def isIntConstant(self, token):
+        return self.intFA.checkString(token)
 
     def scan(self):
         file = open(self.code)
@@ -64,7 +71,7 @@ class Scanner:
             for token in readTokens:
                 if self.isToken(token):
                     self.pif.genPif(token, 0)
-                elif self.isIdentifier(token) or self.isConstant(token):
+                elif self.isIdentifier(token) or self.isIntConstant(token) or self.isStringConstant(token):
                     index = self.symbolTable.search(token)
                     if index is None:
                         self.symbolTable.add(token)
