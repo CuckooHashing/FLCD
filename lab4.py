@@ -93,4 +93,5 @@ while True:
     elif choice == "4":
         print(FA.F)
     elif choice == "5":
-        pass
+        seq = input("Gimme a sequence to check pls ")
+        prin(FA.checkString(seq))
