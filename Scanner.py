@@ -3,17 +3,17 @@ from SymbolTable import SymbolTable
 from ProgramInternalForm import ProgramInternalForm
 from FA import FiniteAutomata
 class Scanner:
-    def __init__(self, sym: SymbolTable, pif: ProgramInternalForm, codePath = "D:\\Facultate\\Sem 1\\FLCD\\STlab2\\lab1.txt"):
+    def __init__(self, sym: SymbolTable, pif: ProgramInternalForm, codePath = "D:\\Facultate\\Sem 1\\FLCD\\gitRepo\\FLCD\\lab1.txt"):
         self.operators = []
         self.tokens = self.readTokens()
         self.code = codePath
         self.pif = pif
         self.symbolTable = sym
-        self.intFA = FiniteAutomata.readFromFile("intFA.in")
-        self.idFA = FiniteAutomata.readFromFile("idFA.in")
+        self.intFA = FiniteAutomata.readFromFile("D:\\Facultate\\Sem 1\\FLCD\\gitRepo\\FLCD\\intFA.in")
+        self.idFA = FiniteAutomata.readFromFile("D:\\Facultate\\Sem 1\\FLCD\\gitRepo\\FLCD\\idFA.in")
 
     def readTokens(self):
-        file = open("D:\\Facultate\\Sem 1\\FLCD\\STlab2\\token.in")
+        file = open("D:\\Facultate\\Sem 1\\FLCD\\gitRepo\\FLCD\\token.in")
         count = 0
 
         tokens = []

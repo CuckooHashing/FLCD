@@ -27,7 +27,7 @@ class FiniteAutomata:
         return [lhs, rhs[0]]
 
     @staticmethod
-    def readFromFile(filename = "D:\\Facultate\\Sem 1\\FLCD\\gitRepo\\FLCD\\FA.in"):
+    def readFromFile(filename = "D:\\Facultate\\Sem 1\\FLCD\\FA.in"):
         '''
         reading and parsing the FA from the file
         '''
@@ -65,33 +65,3 @@ class FiniteAutomata:
             else:
                 return False
         return current in self.F
-
-def printMenu():
-    '''
-    generates a menu
-    '''
-    print("this is a menu :)")
-    print("0. Exit")
-    print("1. Show the set of states - Q")
-    print("2. Show the alphabeth - sigma")
-    print("3. Show the transitions - delta")
-    print("4. Show the set of final states - F")
-    print("5. Check if a DFA is accepted")
-
-FA = FiniteAutomata.readFromFile()
-while True:
-    printMenu()
-    choice = input("Pick one pls ")
-    if choice == "0":
-        break
-    elif choice == "1":
-        print(FA.Q)
-    elif choice == "2":
-        print(FA.sigma)
-    elif choice == "3":
-        print(FA.delta)
-    elif choice == "4":
-        print(FA.F)
-    elif choice == "5":
-        seq = input("Gimme a sequence to check pls ")
-        print(FA.checkString(seq))
